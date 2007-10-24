@@ -1,7 +1,7 @@
 %define major 1
 %define libname %mklibname %{name} %major
-%define libnamedev %mklibname %{name} %major -d
-
+%define develname %mklibname %{name} -d
+%define staticname %mklibname %name -s -d
 
 Summary:	OpenGL image compositing library
 Name:		glitz
@@ -57,22 +57,24 @@ will report if any requested operation cannot be carried out by
 graphics hardware, hence making a higher level software layer
 responsible for appropriate actions.
 
-%package -n %{libnamedev}
+%package -n %{develname}
 Summary:	Development files for glitz library
 Group:		Development/C
 Requires:	%{libname} = %version
 Provides:	%{name}-devel = %version-%release
 Provides:	lib%{name}-devel = %version-%release
+Obsoletes: %mklibname -d %name 1
 
-%description -n %{libnamedev}
+%description -n %{develname}
 Development files for glitz library.
 
-%package -n %{libname}-static-devel
+%package -n %staticname
 Summary:	Static glitz library
 Group:		Development/C
-Requires:	%{libnamedev} = %version
+Requires:	%{develname} = %version
+Obsoletes: %mklibname -s -d %name 1
 
-%description -n %{libname}-static-devel
+%description -n %staticname
 Static glitz library.
 
 %prep
@@ -106,16 +108,16 @@ rm -rf $RPM_BUILD_ROOT
 %files -n %{libname}
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING README NEWS TODO
-%_libdir/lib*.so.*
+%_libdir/libglitz*.so.%{major}*
 
-%files -n %{libnamedev}
+%files -n %{develname}
 %defattr(644,root,root,755)
 %_libdir/lib*.so
 %_libdir/lib*.la
 %_includedir/*
 %_libdir/pkgconfig/*.pc
 
-%files -n %{libname}-static-devel
+%files -n %staticname
 %defattr(644,root,root,755)
 %_libdir/lib*.a
 
