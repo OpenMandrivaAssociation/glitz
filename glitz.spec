@@ -12,7 +12,7 @@ Group:		System/Libraries
 Source0:	http://cairographics.org/snapshots/%name-%version.tar.bz2
 Patch0:		glitz-0.4.0-libtool.patch
 URL:		http://cairographics.org/
-BuildRequires:	XFree86-devel
+BuildRequires:	X11-devel
 BuildRequires: automake1.7
 BuildRoot:	%_tmppath/%name-%version-root
 
