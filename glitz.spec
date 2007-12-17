@@ -14,7 +14,6 @@ Patch0:		glitz-0.4.0-libtool.patch
 URL:		http://cairographics.org/
 BuildRequires:	X11-devel
 BuildRequires: automake1.7
-BuildRoot:	%_tmppath/%name-%version-root
 
 %description
 Glitz is an OpenGL image compositing library. Glitz provides
