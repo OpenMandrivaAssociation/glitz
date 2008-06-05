@@ -1,20 +1,20 @@
 %define major 1
-%define libname %mklibname %{name} %major
+%define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
-%define staticname %mklibname %name -s -d
+%define staticname %mklibname %{name} -s -d
 
 Summary:	OpenGL image compositing library
 Name:		glitz
-Version:        0.5.6
-Release:        %mkrel 2
+Version:	0.5.6
+Release:	%mkrel 2
 License:	BSD
 Group:		System/Libraries
+URL:		http://cairographics.org/
 Source0:	http://cairographics.org/snapshots/%name-%version.tar.bz2
 Patch0:		glitz-0.4.0-libtool.patch
-URL:		http://cairographics.org/
 BuildRequires:	X11-devel
-BuildRequires: automake1.7
-BuildRoot:	%_tmppath/%name-%version-root
+BuildRequires:	GL-devel
+BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 Glitz is an OpenGL image compositing library. Glitz provides
@@ -60,65 +60,54 @@ responsible for appropriate actions.
 %package -n %{develname}
 Summary:	Development files for glitz library
 Group:		Development/C
-Requires:	%{libname} = %version
-Provides:	%{name}-devel = %version-%release
-Provides:	lib%{name}-devel = %version-%release
-Obsoletes: %mklibname -d %name 1
+Requires:	%{libname} = %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
+Provides:	lib%{name}-devel = %{version}-%{release}
+Obsoletes:	%mklibname -d %{name} 1
 
 %description -n %{develname}
 Development files for glitz library.
 
-%package -n %staticname
+%package -n %{staticname}
 Summary:	Static glitz library
 Group:		Development/C
-Requires:	%{develname} = %version
-Obsoletes: %mklibname -s -d %name 1
+Requires:	%{develname} = %{version}-%{release}
+Obsoletes:	%mklibname -s -d %{name} 1
 
-%description -n %staticname
+%description -n %{staticname}
 Static glitz library.
 
 %prep
 %setup -q
-aclocal-1.7
-autoheader
-autoconf
-cp %_datadir/automake-1.7/mkinstalldirs config
-automake-1.7
-libtoolize --copy --force
 %patch0 -p1 -b .libtool
 
 %build
+
 %configure2_5x
-%make
+%make LDFLAGS+=-ldl
 
 %install
-
+rm -rf %{buildroot}
 %makeinstall_std
-#fix libtool library:
-perl -pi -e "s°-L$RPM_BUILD_DIR/%name-%version/src°°" %buildroot%_libdir/*.la
-
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %post	-n %{libname} -p /sbin/ldconfig
 %postun	-n %{libname} -p /sbin/ldconfig
 
+%clean
+rm -rf %{buildroot}
 
 %files -n %{libname}
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %doc AUTHORS COPYING README NEWS TODO
-%_libdir/libglitz*.so.%{major}*
+%{_libdir}/libglitz*.so.%{major}*
 
 %files -n %{develname}
-%defattr(644,root,root,755)
-%_libdir/lib*.so
-%_libdir/lib*.la
-%_includedir/*
-%_libdir/pkgconfig/*.pc
+%defattr(-,root,root)
+%{_libdir}/lib*.so
+%{_libdir}/lib*.la
+%{_includedir}/*
+%{_libdir}/pkgconfig/*.pc
 
-%files -n %staticname
-%defattr(644,root,root,755)
-%_libdir/lib*.a
-
-
+%files -n %{staticname}
+%defattr(-,root,root)
+%{_libdir}/lib*.a
