@@ -12,6 +12,7 @@ Group:		System/Libraries
 URL:		http://cairographics.org/
 Source0:	http://cairographics.org/snapshots/%name-%version.tar.bz2
 Patch0:		glitz-0.4.0-libtool.patch
+Patch1:		glitz-0.5.6-wformat.patch
 BuildRequires:	X11-devel
 BuildRequires:	GL-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -80,6 +81,7 @@ Static glitz library.
 %prep
 %setup -q
 %patch0 -p1 -b .libtool
+%patch1 -p1 -b .wformat
 
 %build
 
