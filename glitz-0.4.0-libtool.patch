@@ -1,0 +1,15 @@
+FIXME: should very likely be in our libtool? Not sure, simply that -lglitz was
+inserted before -L$RPM_BUILD_ROOT%{_libdir}, hence tried to be looked up in the
+standard search path.
+
+--- glitz-0.4.0/config/ltmain.sh.libtool	2005-02-11 12:39:12.377754000 -0500
++++ glitz-0.4.0/config/ltmain.sh	2005-02-11 12:39:53.962143204 -0500
+@@ -2696,7 +2696,7 @@ EOF
+ 	      test -n "$add_dir" && finalize_deplibs="$add_dir $finalize_deplibs"
+ 	      test -n "$add" && finalize_deplibs="$add $finalize_deplibs"
+ 	    else
+-	      test -n "$add_dir" && deplibs="$add_dir $deplibs"
++	      test -n "$add_dir" && deplibs="$deplibs $add_dir"
+ 	      test -n "$add" && deplibs="$add $deplibs"
+ 	    fi
+ 	  fi
