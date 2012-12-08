@@ -6,7 +6,7 @@
 Summary:	OpenGL image compositing library
 Name:		glitz
 Version:	0.5.6
-Release:	%mkrel 9
+Release:	%mkrel 11
 License:	BSD
 Group:		System/Libraries
 URL:		http://cairographics.org/
@@ -89,18 +89,7 @@ Static glitz library.
 %make LDFLAGS+=-ldl
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
-
-%if %mdkversion < 200900
-%post	-n %{libname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun	-n %{libname} -p /sbin/ldconfig
-%endif
-
-%clean
-rm -rf %{buildroot}
 
 %files -n %{libname}
 %defattr(-,root,root)
@@ -110,10 +99,100 @@ rm -rf %{buildroot}
 %files -n %{develname}
 %defattr(-,root,root)
 %{_libdir}/lib*.so
-%{_libdir}/lib*.la
 %{_includedir}/*
 %{_libdir}/pkgconfig/*.pc
 
 %files -n %{staticname}
 %defattr(-,root,root)
 %{_libdir}/lib*.a
+
+
+%changelog
+* Tue May 03 2011 Oden Eriksson <oeriksson@mandriva.com> 0.5.6-9mdv2011.0
++ Revision: 664853
+- mass rebuild
+
+* Fri Feb 04 2011 Funda Wang <fwang@mandriva.org> 0.5.6-8
++ Revision: 635844
+- rebuild
+- tighten BR
+
+* Thu Dec 02 2010 Oden Eriksson <oeriksson@mandriva.com> 0.5.6-7mdv2011.0
++ Revision: 605460
+- rebuild
+
+* Tue Mar 16 2010 Oden Eriksson <oeriksson@mandriva.com> 0.5.6-6mdv2010.1
++ Revision: 521129
+- rebuilt for 2010.1
+
+* Wed Aug 12 2009 Christophe Fergeau <cfergeau@mandriva.com> 0.5.6-5mdv2010.0
++ Revision: 415382
+- fix -Wformat warnings
+
+* Sun Nov 09 2008 Oden Eriksson <oeriksson@mandriva.com> 0.5.6-4mdv2009.1
++ Revision: 301466
+- rebuilt against new libxcb
+
+* Wed Aug 06 2008 Thierry Vignaud <tv@mandriva.org> 0.5.6-3mdv2009.0
++ Revision: 264553
+- rebuild early 2009.0 package (before pixel changes)
+
+  + Pixel <pixel@mandriva.com>
+    - do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
+
+* Thu Jun 05 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 0.5.6-2mdv2009.0
++ Revision: 215162
+- fix underlinking
+- spec file clean
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+    - buildrequires X11-devel instead of XFree86-devel
+
+* Wed Oct 24 2007 GÃ¶tz Waschk <waschk@mandriva.org> 0.5.6-2mdv2008.1
++ Revision: 101739
+- new devel name
+
+
+* Thu Mar 01 2007 Thierry Vignaud <tvignaud@mandriva.com> 0.5.6-2mdv2007.0
++ Revision: 130764
+- Import glitz
+
+* Thu Mar 01 2007 Thierry Vignaud <tvignaud@mandrakesoft.com> 0.5.6-2mdv2007.1
+- do not package big ChangeLog
+
+* Sat May 27 2006 Sebastien Savarin <plouf@mandriva.org> 0.5.6-1mdv2007.0
+- New release 0.5.6
+
+* Fri May 05 2006 Jerome Soyer <saispo@mandriva.org> 0.5.3-1mdk
+- New release 0.5.3
+
+* Sat Dec 31 2005 Mandriva Linux Team <http://www.mandrivaexpert.com/> 0.4.4-2mdk
+- Rebuild
+
+* Fri Aug 12 2005 GÃ¶tz Waschk <waschk@mandriva.org> 0.4.4-1mdk
+- New release 0.4.4
+
+* Tue Jun 28 2005 Götz Waschk <waschk@mandriva.org> 0.4.3-1mdk
+- reenable libtoolize
+- New release 0.4.3
+
+* Fri Feb 11 2005 Gwenole Beauchesne <gbeauchesne@mandrakesoft.com> 0.4.0-2mdk
+- fix build ex nihilo
+
+* Fri Jan 28 2005 Goetz Waschk <waschk@linux-mandrake.com> 0.4.0-1mdk
+- New release 0.4.0
+
+* Fri Nov 05 2004 Marcel Pol <mpol@mandrake.org> 0.2.3-1mdk
+- 0.2.3
+- use %%configure macro
+
+* Sat Sep 18 2004 Lenny Cartier <lenny@mandrakesoft.com> 0.2.2-1mdk
+- from Tigrux <tigrux@ximian.com> : 
+	- First RPM, based on Cairo rpm
+- use mklibname macros
+- do not use the %%configure
+
