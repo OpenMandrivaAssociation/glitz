@@ -84,7 +84,7 @@ Development files for glitz library.
 %build
 
 %configure2_5x \
-	--diabled-static
+	--disable-static
 %make LDFLAGS+=-ldl
 
 %install
