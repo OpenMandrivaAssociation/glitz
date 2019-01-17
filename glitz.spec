@@ -6,7 +6,7 @@
 Summary:	OpenGL image compositing library
 Name:		glitz
 Version:	0.5.6
-Release:	22
+Release:	23
 License:	BSD
 Group:		System/Libraries
 Url:		http://cairographics.org/
