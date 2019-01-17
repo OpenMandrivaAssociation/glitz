@@ -1,0 +1,26 @@
+diff -up glitz-0.5.6/configure.in.omv~ glitz-0.5.6/configure.in
+--- glitz-0.5.6/configure.in.omv~	2019-01-17 08:41:16.069183236 +0100
++++ glitz-0.5.6/configure.in	2019-01-17 08:41:29.354368910 +0100
+@@ -10,18 +10,18 @@ GLITZ_VERSION=0.5.6
+ # libtool shared library version
+ 
+ # Increment if the interface has additions, changes, removals.
+-LT_CURRENT=1
++LTCURRENT=1
+ 
+ # Increment any time the source changes; set to
+ # 0 if you increment CURRENT
+-LT_REVISION=0
++LTREVISION=0
+ 
+ # Increment if any interfaces have been added; set to 0
+ # if any interfaces have been removed. removal has
+ # precedence over adding, so set to 0 if both happened.
+-LT_AGE=0
++LTAGE=0
+ 
+-VERSION_INFO="$LT_CURRENT:$LT_REVISION:$LT_AGE"
++VERSION_INFO="$LTCURRENT:$LTREVISION:$LTAGE"
+ AC_SUBST(VERSION_INFO)
+ 
+ dnl ===========================================================================

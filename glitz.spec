@@ -6,13 +6,14 @@
 Summary:	OpenGL image compositing library
 Name:		glitz
 Version:	0.5.6
-Release:	23
+Release:	24
 License:	BSD
 Group:		System/Libraries
 Url:		http://cairographics.org/
 Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.bz2
 Patch0:		glitz-0.4.0-libtool.patch
 Patch1:		glitz-0.5.6-wformat.patch
+Patch2:		glitz-0.5.6-autotools.patch
 
 BuildRequires:	pkgconfig(glitz)
 BuildRequires:	pkgconfig(gl)
@@ -79,14 +80,15 @@ Obsoletes:	%{_lib}glitz-static-devel < 0.5.6-12
 Development files for glitz library.
 
 %prep
-%setup -q
-%apply_patches
+%autosetup -p1
+libtoolize --force
+aclocal
+automake -a
+autoconf
 
 %build
-
-%configure2_5x \
-	--disable-static
-%make LDFLAGS+=-ldl
+%configure
+%make LDFLAGS+="%{ldflags} -ldl"
 
 %install
 %makeinstall_std
