@@ -9,7 +9,7 @@ Version:	0.5.6
 Release:	25
 License:	BSD
 Group:		System/Libraries
-Url:		http://cairographics.org/
+Url:		https://cairographics.org/
 Source0:	http://cairographics.org/snapshots/%{name}-%{version}.tar.bz2
 Patch0:		glitz-0.4.0-libtool.patch
 Patch1:		glitz-0.5.6-wformat.patch
