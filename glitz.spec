@@ -15,6 +15,11 @@ Patch0:		glitz-0.4.0-libtool.patch
 Patch1:		glitz-0.5.6-wformat.patch
 Patch2:		glitz-0.5.6-autotools.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(glitz)
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(x11)
